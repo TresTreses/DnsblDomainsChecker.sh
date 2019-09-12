@@ -30,7 +30,6 @@ bl.spameatingmonkey.net
 b.barracudacentral.org
 bl.deadbeef.com
 bl.emailbasura.org
-bl.spamcannibal.org
 bl.spamcop.net
 blackholes.five-ten-sg.com
 blacklist.woody.ch
@@ -108,7 +107,7 @@ zombie.dnsbl.sorbs.net
 for arg in "$@"
 do
 	IPs=(`dig +short $arg`)
-	IPs+=(`dig +short $arg mx | sort -n | nawk '{print $2; exit}' | dig +short -f - `)
+	IPs+=(`dig +short $arg mx | sort -n | nawk '{print $2}' | dig +short -f - `)
 	for IP in "${IPs[@]}" ; do
 		echo Checking domain: $arg, related IP: $IP
 		IPr=`echo $IP | sed -ne "s~^\([0-9]\{1,3\}\)\.\([0-9]\{1,3\}\)\.\([0-9]\{1,3\}\)\.\([0-9]\{1,3\}\)$~\4.\3.\2.\1~p"`
